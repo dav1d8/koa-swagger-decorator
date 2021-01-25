@@ -34,8 +34,8 @@ class SwaggerObject {
                 if (this.data[key][k].length === 0)
                     return;
                 this.data[key][k] = is_type_of_1.default.object(this.data[key][k][0]) ?
-                    ramda_1.default.uniqBy((o) => o.name, this.data[key][k])
-                    : ramda_1.default.uniq(this.data[key][k]);
+                    ramda_1.uniqBy((o) => o.name, this.data[key][k])
+                    : ramda_1.uniq(this.data[key][k]);
             }
             else {
                 Object.assign(this.data[key], { [k]: content[k] });

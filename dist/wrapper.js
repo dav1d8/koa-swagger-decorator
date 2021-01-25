@@ -125,7 +125,7 @@ const handleMap = (router, SwaggerClass, options = { doValidation: true }) => {
         const localParams = item.parameters || {};
         if (classParametersFilters.includes('ALL') ||
             classParametersFilters.map(i => i.toLowerCase()).includes(method)) {
-            const globalQuery = ramda_1.default.clone(classParameters.query);
+            const globalQuery = ramda_1.clone(classParameters.query);
             localParams.query = localParams.query ? localParams.query : {};
             // merge local query and class query
             // local query 的优先级更高

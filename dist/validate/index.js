@@ -14,7 +14,7 @@ class InputError extends Error {
 }
 function default_1(rawInput, expect) {
     // make it pure
-    const input = ramda_1.default.clone(rawInput);
+    const input = ramda_1.clone(rawInput);
     Object.keys(expect).forEach((key) => {
         if (expect[key] === undefined) {
             delete input[key]; // remove unexpected key/vals.

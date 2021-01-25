@@ -47,10 +47,10 @@ const cNum = (val, expect) => {
 const cBool = (val, expect) => {
     if (!cRequired(val, expect).is)
         return { is: false };
-    const cond = ramda_1.default.cond([
-        [ramda_1.default.equals('true'), ramda_1.default.always({ is: true, val: true })],
-        [ramda_1.default.equals('false'), ramda_1.default.always({ is: true, val: false })],
-        [ramda_1.default.T, ramda_1.default.always({ is: typeof val === 'boolean', val })]
+    const cond = ramda_1.cond([
+        [ramda_1.equals('true'), ramda_1.always({ is: true, val: true })],
+        [ramda_1.equals('false'), ramda_1.always({ is: true, val: false })],
+        [ramda_1.T, ramda_1.always({ is: typeof val === 'boolean', val })]
     ]);
     return cond(val);
 };
@@ -118,13 +118,13 @@ const cArray = (input, expect) => {
     // items 字段为字符串的情况: array 中的内容是基本类型, 或者为object|array类型但不需要校验内部字段
     if (is_type_of_1.default.string(expect.items)) {
         const check = (func) => () => input.length === input.filter(item => func(item)).length;
-        const cond = ramda_1.default.cond([
-            [ramda_1.default.equals('string'), check(is_type_of_1.default.string)],
-            [ramda_1.default.equals('boolean'), check(is_type_of_1.default.boolean)],
-            [ramda_1.default.equals('number'), check(is_type_of_1.default.number)],
-            [ramda_1.default.equals('object'), check(is_type_of_1.default.object)],
-            [ramda_1.default.equals('array'), check(is_type_of_1.default.array)],
-            [ramda_1.default.T, true]
+        const cond = ramda_1.cond([
+            [ramda_1.equals('string'), check(is_type_of_1.default.string)],
+            [ramda_1.equals('boolean'), check(is_type_of_1.default.boolean)],
+            [ramda_1.equals('number'), check(is_type_of_1.default.number)],
+            [ramda_1.equals('object'), check(is_type_of_1.default.object)],
+            [ramda_1.equals('array'), check(is_type_of_1.default.array)],
+            [ramda_1.T, true]
         ]);
         return { is: cond(expect.items), val: input };
     }
@@ -135,13 +135,13 @@ const check = (input, expect) => {
     const r = cNullable(input, expect);
     if (r.is === true)
         return r;
-    const cond = ramda_1.default.cond([
-        [ramda_1.default.equals('string'), () => cString(input, expect)],
-        [ramda_1.default.equals('boolean'), () => cBool(input, expect)],
-        [ramda_1.default.equals('number'), () => cNum(input, expect)],
-        [ramda_1.default.equals('object'), () => cObject(input, expect)],
-        [ramda_1.default.equals('array'), () => cArray(input, expect)],
-        [ramda_1.default.T, () => ({ is: true, val: input })] // 其他类型不做校验，直接返回原数据
+    const cond = ramda_1.cond([
+        [ramda_1.equals('string'), () => cString(input, expect)],
+        [ramda_1.equals('boolean'), () => cBool(input, expect)],
+        [ramda_1.equals('number'), () => cNum(input, expect)],
+        [ramda_1.equals('object'), () => cObject(input, expect)],
+        [ramda_1.equals('array'), () => cArray(input, expect)],
+        [ramda_1.T, () => ({ is: true, val: input })] // 其他类型不做校验，直接返回原数据
     ]);
     return cond(expect.type);
 };
