@@ -39,7 +39,7 @@ const _params = (type, parameters) => (target, name, descriptor) => {
     return descriptor;
 };
 const request = (method, path) => (target, name, descriptor) => {
-    method = ramda_1.default.toLower(method);
+    method = ramda_1.toLower(method);
     descriptor.value.method = method;
     descriptor.value.path = path;
     swaggerObject_1.default.add(target, name, {
@@ -75,7 +75,7 @@ const responses = (responses = defaultResp) => (target, name, descriptor) => {
     return descriptor;
 };
 exports.responses = responses;
-const desc = ramda_1.default.curry(_desc);
+const desc = ramda_1.curry(_desc);
 exports.desc = desc;
 // description and summary
 const description = desc("description");
@@ -84,7 +84,7 @@ const summary = desc("summary");
 exports.summary = summary;
 const tags = desc("tags");
 exports.tags = tags;
-const params = ramda_1.default.curry(_params);
+const params = ramda_1.curry(_params);
 exports.params = params;
 // below are [parameters]
 // query params
