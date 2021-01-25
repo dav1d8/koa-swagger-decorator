@@ -129,7 +129,7 @@ const handleSwagger = (router: SwaggerRouter, options: SwaggerOptions) => {
 const handleMap = (
   router: SwaggerRouter,
   SwaggerClass: any,
-  { doValidation = true }
+  options: MapOptions = { doValidation: true }
 ) => {
   if (!SwaggerClass) return;
   const classMiddlewares: any[] = SwaggerClass.middlewares || [];
@@ -215,7 +215,7 @@ const handleMap = (
       }
 
       const chain: [any] = [`${convertPath(`${classPrefix}${path}`)}`];
-      if (doValidation) {
+      if (options.doValidation) {
         chain.push(validator(localParams));
       }
       chain.push(...classMiddlewares);
